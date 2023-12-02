@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+
+class Product {
+  final String title;
+  final String description;
+  final int price;
+  final String thumbnail;
+  Product(this.title, this.description, this.price, this.thumbnail);
+  factory Product.fromMap(Map<String, dynamic> json) {
+    return Product(
+      json['title'],
+      json['description'],
+      json['price'],
+      json['thumbnail'],
+    );
+  }
+}
+
+
+class _MyHomePageState extends State<MyHomePage> {
+  // Replace this URL with the API endpoint you want to call
+  final String apiUrl = 'https://dummyjson.com/products';
+
+  Future<Map<String, dynamic>> fetchData() async {
+    final response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      // If the server returns a 200 OK response, parse the JSON
+      return json.decode(response.body);
+    } else {
+      // If the server did not return a 200 OK response, throw an exception
+      throw Exception('Failed to load data');
+    }
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter REST API Example'),
+      ),
+      body: Center(
+        child: FutureBuilder<Map<String, dynamic>>(
+          future: fetchData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              // Display the data from the API
+              return Text('API Response: ${snapshot.data}');
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
