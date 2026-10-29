@@ -1,77 +1,108 @@
 # Flutter REST Products
 
-A modern Flutter application that browses products from the [dummyjson.com](https://dummyjson.com) REST API. Built with Material 3, cached network images, a search bar, and a smooth image carousel on the detail screen.
+A modernized Flutter application that browses products from the [dummyjson.com](https://dummyjson.com) REST API. Built with Material 3, clean architecture, real-time search filtering, half-star rating precision, dynamic discount calculation, image carousels, and cart interactions.
 
-## Screenshots
+---
 
-| Home | Detail |
-|------|--------|
-| Product list with search | Image carousel, pricing, rating, cart |
+## 📱 Screenshots
 
-## Features
+<p align="center">
+  <a href="screen1.jpg">
+    <img src="screen1.jpg" alt="Application Screenshot" width="360" />
+  </a>
+</p>
 
-- **REST API** — fetches up to 100 products from `dummyjson.com/products`
-- **Search** — filter by product name, category, or brand in real time
-- **Material 3** — `useMaterial3: true`, dynamic `ColorScheme.fromSeed`, light + dark theme support
-- **Image carousel** — swipe through all product images on the detail screen with dot indicators and Hero transitions
-- **Real star rating** — half-star precision using the API `rating` field
-- **Discount display** — shows original price, discounted price, and percentage badge
-- **Stock status** — live stock count with colour-coded indicator
-- **Cart counter** — in-memory cart badge on the app bar
-- **Error + empty states** — friendly UI for network failures and empty search results
-- **Cached images** — `cached_network_image` for efficient image loading
+<p align="center">
+  <em><a href="screen1.jpg">View full-size screenshot (screen1.jpg)</a></em>
+</p>
 
-## Project Structure
+---
+
+## ✨ Features
+
+- **REST API Integration**: Fetches real-time product data from `dummyjson.com/products?limit=100`.
+- **Search & Filter**: Instant filtering across product titles, categories, and brands.
+- **Material 3 Design**: Fully adapted with `useMaterial3: true`, dynamic color schemes (`ColorScheme.fromSeed`), and light/dark mode support.
+- **Image Carousel & Hero Transitions**: Smooth PageView with indicators and Hero animations between list and detail views.
+- **Star Rating**: Half-star precision rendering reflecting the actual API rating score.
+- **Pricing & Discounts**: Calculates and formats discounted prices with percentage badge and original strikethrough price.
+- **Stock Availability**: Live in-stock indicator with color-coded status.
+- **Interactive Cart**: In-memory shopping cart counter with badge updates and floating SnackBar notifications.
+- **Robust Error & Empty States**: User-friendly retry interface for network errors and clean empty-search feedback.
+- **Cached Images**: Fast image loading with placeholder and error fallback management via `cached_network_image`.
+
+---
+
+## 🏗️ Project Architecture
 
 ```
 lib/
-├── main.dart                  # App entry point, MaterialApp, themes
+├── main.dart                       # App entry point, theme setup, routing
 ├── models/
-│   └── product.dart           # Product data class + fromJson factory
+│   └── product.dart                # Product entity, JSON serialization, getters
 ├── services/
-│   └── product_service.dart   # HTTP fetch logic
+│   └── product_service.dart        # HTTP client handling dummyjson API requests
 ├── screens/
-│   ├── home_screen.dart       # Product list + search bar
-│   └── product_detail_screen.dart  # Detail view, carousel, buy actions
+│   ├── home_screen.dart            # Product catalog list, search bar, state handling
+│   └── product_detail_screen.dart   # Image carousel, product specs, cart actions
 └── widgets/
-    ├── product_card.dart      # List tile card widget
-    └── star_rating.dart       # Reusable half-star rating row
+    ├── product_card.dart           # Catalog item card with thumbnail & pricing
+    └── star_rating.dart            # Reusable fractional star rating component
 ```
 
-## Getting Started
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
 - Flutter SDK ≥ 3.1.5
 - Dart SDK ≥ 3.1.5
 
-### Run
+### Installation & Run
 
-```bash
-flutter pub get
-flutter run
-```
+1. Navigate to the project root:
+   ```bash
+   cd "Flutter_REST"
+   ```
 
-### Build APK
+2. Fetch packages:
+   ```bash
+   flutter pub get
+   ```
+
+3. Launch the application:
+   ```bash
+   flutter run
+   ```
+
+### Build Release APK
 
 ```bash
 flutter build apk --release
 ```
 
-## Dependencies
+---
+
+## 📦 Dependencies
 
 | Package | Purpose |
 |---------|---------|
-| `http ^1.1.0` | HTTP requests |
-| `cached_network_image ^3.3.1` | Efficient image caching |
-| `cupertino_icons ^1.0.6` | iOS-style icons |
+| [`http`](https://pub.dev/packages/http) | REST API requests |
+| [`cached_network_image`](https://pub.dev/packages/cached_network_image) | Image caching and fallbacks |
+| [`cupertino_icons`](https://pub.dev/packages/cupertino_icons) | Iconography support |
 
-## API
+---
 
-Uses the public [dummyjson.com](https://dummyjson.com) API — no key required.
+## 🌐 API Reference
 
-Endpoint: `GET https://dummyjson.com/products?limit=100`
+Powered by the free [DummyJSON](https://dummyjson.com/) API:
 
-## License
+- **Endpoint**: `GET https://dummyjson.com/products?limit=100`
+- **Authentication**: None required
+
+---
+
+## 📄 License
 
 MIT
